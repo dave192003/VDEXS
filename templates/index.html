@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Virus Detection Expert System</title>
+    <link rel="stylesheet" href="../static/style.css">
+</head>
+<body>
+
+    <header class="page-header">
+        <div class="shield" aria-hidden="true">&#128737;</div>
+        <h1>VDEXS</h1>
+        <h2>Virus Detection Expert System</h2>
+        <p class="subtitle">Analyze system/files characteristics and detect possible security threats.</p>
+    </header>
+
+    <main>
+        <form id="analysis-form" novalidate>
+
+            <!-- FILE CHARACTERISTICS -->
+            <section class="card">
+                <h2><span class="step">1</span> File Characteristics</h2>
+                <p class="card-desc">Describe the file you want to evaluate.</p>
+
+                <div class="field">
+                    <label for="file-type">File Type</label>
+                    <p class="hint">Kind of file being checked.</p>
+                    <select id="file-type" name="file-type">
+                        <option value="executable" selected>Executable</option>
+                        <option value="document">Document</option>
+                        <option value="system-file">System File</option>
+                        <option value="other">Other</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="file-source">File Source</label>
+                    <p class="hint">Where the file came from.</p>
+                    <select id="file-source" name="file-source">
+                        <option value="trusted" selected>Trusted</option>
+                        <option value="unknown">Unknown</option>
+                        <option value="untrusted">Untrusted</option>
+                    </select>
+                </div>
+            </section>
+
+            <!--  FILE BEHAVIOR-->
+            <section class="card">
+                <h2><span class="step">2</span> File Behavior</h2>
+                <p class="card-desc">What the file does when it runs.</p>
+
+                <div class="field">
+                    <label for="behavior">Behavior</label>
+                    <p class="hint">How the file behaves on the system.</p>
+                    <select id="behavior" name="behavior">
+                        <option value="normal" selected>Normal</option>
+                        <option value="suspicious">Suspicious</option>
+                        <option value="malicious">Malicious</option>
+                    </select>
+                </div>
+            </section>
+
+            <!--  SYSTEM BEHAVIOR-->
+            <section class="card">
+                <h2><span class="step">3</span> System Behavior</h2>
+                <p class="card-desc">How your computer has been acting lately.</p>
+
+                <div class="field">
+                    <label>Performance</label>
+                    <p class="hint">Overall speed of the computer.</p>
+                    <div class="choice-group">
+                        <label class="choice"><input type="radio" name="performance" value="normal" checked><span>Normal</span></label>
+                        <label class="choice"><input type="radio" name="performance" value="slow"><span>Slow</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Unknown Programs</label>
+                    <p class="hint">Are there programs running that you don't recognize?</p>
+                    <div class="choice-group">
+                        <label class="choice"><input type="radio" name="unknown-programs" value="yes"><span>Yes</span></label>
+                        <label class="choice"><input type="radio" name="unknown-programs" value="no" checked><span>No</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Unauthorized Changes</label>
+                    <p class="hint">Were settings changed without your permission?</p>
+                    <div class="choice-group">
+                        <label class="choice"><input type="radio" name="unauthorized-changes" value="yes"><span>Yes</span></label>
+                        <label class="choice"><input type="radio" name="unauthorized-changes" value="no" checked><span>No</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>File Changes</label>
+                    <p class="hint">Have files been modified or created unexpectedly?</p>
+                    <div class="choice-group">
+                        <label class="choice"><input type="radio" name="file-changes" value="yes"><span>Yes</span></label>
+                        <label class="choice"><input type="radio" name="file-changes" value="no" checked><span>No</span></label>
+                    </div>
+                </div>
+            </section>
+
+            <!--  NETWORK ACTIVITY -->
+            <section class="card">
+                <h2><span class="step">4</span> Network Activity</h2>
+                <p class="card-desc">What your internet connection has been doing.</p>
+
+                <div class="field">
+                    <label>Unknown Connection</label>
+                    <p class="hint">Connections to unknown servers or devices?</p>
+                    <div class="choice-group">
+                        <label class="choice"><input type="radio" name="unknown-connection" value="yes"><span>Yes</span></label>
+                        <label class="choice"><input type="radio" name="unknown-connection" value="no" checked><span>No</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Unusual Data Transfer</label>
+                    <p class="hint">Large or unexpected uploads / downloads?</p>
+                    <div class="choice-group">
+                        <label class="choice"><input type="radio" name="unusual-data-transfer" value="yes"><span>Yes</span></label>
+                        <label class="choice"><input type="radio" name="unusual-data-transfer" value="no" checked><span>No</span></label>
+                    </div>
+                </div>
+            </section>
+
+            <!--  SECURITY STATUS  -->
+            <section class="card">
+                <h2><span class="step">5</span> Security Status</h2>
+                <p class="card-desc">Protection tools currently on the computer.</p>
+
+                <div class="field">
+                    <label>Antivirus</label>
+                    <p class="hint">Is your antivirus currently active?</p>
+                    <div class="choice-group">
+                        <label class="choice"><input type="radio" name="antivirus" value="enabled" checked><span>Enabled</span></label>
+                        <label class="choice"><input type="radio" name="antivirus" value="disabled"><span>Disabled</span></label>
+                    </div>
+                </div>
+            </section>
+
+            <!-- FORM BUTTONS  -->
+            <div class="buttons">
+                <button type="button" id="reset-btn" class="btn btn-secondary">Reset Form</button>
+                <button type="submit" class="btn btn-primary">Analyze System</button>
+            </div>
+        </form>
+
+        <!-- DETECTION RESULT-->
+        <section class="card result-card" id="result-section" hidden>
+            <h2><span class="step result-step">6</span> Detection Result</h2>
+            <p class="card-desc">Based on the characteristics you selected.</p>
+
+            <div id="result-error" class="result-error" hidden></div>
+
+            <div id="result-content">
+                <div class="result-row">
+                    <span class="result-label">Classification</span>
+                    <span class="result-value" id="result-classification">&mdash;</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Threat Level</span>
+                    <span class="result-value" id="result-threat">&mdash;</span>
+                </div>
+                <div class="result-row">
+                    <span class="result-label">Recommended Action</span>
+                    <span class="result-value" id="result-action">&mdash;</span>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <p><strong>Note:</strong> This is an educational expert system demo &mdash; not a real antivirus.
+        It does not scan files or inspect your computer. Results depend only on the
+        characteristics you select above, which are evaluated by CLIPS rules.</p>
+    </footer>
+
+    <script src="../static/script.js"></script>
+</body>
+</html>
+
